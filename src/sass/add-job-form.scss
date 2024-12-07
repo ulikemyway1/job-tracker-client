@@ -1,0 +1,116 @@
+
+
+.add-job-form {
+    position: relative;
+    padding: 20px;
+    background-color: #000000b1;
+    backdrop-filter: blur(400px);
+    box-shadow: 2px 2px 4px #0000009a;
+    border-radius: 20px;
+    overflow: hidden;
+    &__wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        min-height: 100dvh;
+        background-color: #ffffff25;
+        backdrop-filter: blur(2px);
+
+    }
+
+    &__cancel-btn {
+        display: block;
+        position: absolute;
+        top: 0px;
+        right: 10px;
+        padding: 10px;
+        background: none;
+        border: none;
+        font-size: 40px;
+        color: #ffffff;
+        transition: transform 0.3s ease-out;
+
+    }
+
+    &__header {
+        margin-bottom: 15px;
+        padding-right: 40px;
+        min-height: 40px;
+        text-align: center;
+    }
+
+    fieldset {
+        display: flex;
+        gap: 10px;
+        justify-content: stretch;
+        margin-bottom: 10px;
+        border: none;
+
+        &:last-of-type {
+            margin-bottom: 0;
+        }
+    }
+
+    textarea {
+        width: 100%;
+        height: 100px;
+        resize: none;
+    }
+
+    input, textarea, select, button {
+        padding: 10px;
+        border-radius: 6px;
+        border: none;
+        &:focus {
+            outline: 2px solid var(--yellow);
+        }
+    }
+
+    input, select {
+        width: 100%;
+
+        &.error {
+            position: relative;
+            outline: 3px solid var(--red);
+        }
+    }
+
+    &__save-btn {
+        display: block;
+        margin-top: auto;
+        margin-left: auto;
+        margin-top: 15px;
+        padding: 10px 20px;
+        background: var(--green);
+        color: #ffffff;
+        text-transform: uppercase;
+        font-size: 26px;
+        letter-spacing: 4px;
+
+    }
+
+}
+
+
+.add-btn {
+    margin-top: 20px;
+    display:  block;
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    background-color: #119245;
+    color: #ffffff;
+    font-size: 28px;
+    border: none;
+    box-shadow: 0px 0px 20px #119245;
+}
+
+@media (hover: hover) {
+    .add-job-form__cancel-btn:hover {
+        transform: scale(1.1);
+    }
+}

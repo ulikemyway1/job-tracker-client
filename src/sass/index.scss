@@ -1,7 +1,8 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
 @import './variables.scss';
 @import './app.scss';
-@import './add-form.scss';
+@import './add-job-form.scss';
+@import './jobs-table.scss';
 
 
 * {
@@ -17,6 +18,11 @@ body {
     background-size: cover;
     background-repeat: no-repeat;
     color: #f2f2f2;
+
+    &:has(.add-job-form__wrapper) {
+        padding-right: 15px;
+        overflow: hidden;
+    }
 }
 
 

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback, useRef } from 'react';
 import axios from 'axios';
 import JobForm from './JobForm';
 import JobTable from './JobTable';
@@ -11,11 +11,29 @@ function App() {
   const [jobs, setJobs] = useState([]);
   const [editingJob, setEditingJob] = useState(null);
   const [showForm, setShowForm] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const isFirstLoadRef = useRef(true);
 
-  const fetchJobs = async () => {
-    const res = await axios.get(`${API_URL}/jobs`);
-    setJobs(res.data);
-  };
+  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+
+  const fetchJobs = useCallback(async () => {
+    try {
+      if (isFirstLoadRef.current) {
+        const [res] = await Promise.all([
+          axios.get(`${API_URL}/jobs`),
+          delay(4000),
+        ]);
+        setJobs(res.data);
+        isFirstLoadRef.current = false;
+      } else {
+
+        const res = await axios.get(`${API_URL}/jobs`);
+        setJobs(res.data);
+      }
+    } catch (error) {
+      console.error( error);
+    }
+  }, []);
 
   useEffect(() => {
     fetchJobs();
@@ -39,16 +57,20 @@ function App() {
   return (
     <div className='app__container'>
 
-      <Preloader show={true}/>
-      <JobTable
-        jobs={jobs}
-        onEdit={(job) => { setEditingJob(job); setShowForm(true); }}
-        onDelete={deleteJob}
-      />
+      <Preloader show={isFirstLoadRef.current} />
 
-      <button className='add-btn' onClick={() => { setEditingJob(null); setShowForm(true); }}>+</button>
+      {!isFirstLoadRef.current &&
+        (<>
+          <JobTable
+            jobs={jobs}
+            onEdit={(job) => { setEditingJob(job); setShowForm(true); }}
+            onDelete={deleteJob}
+          />
 
-      {showForm && (
+          <button className='add-btn' onClick={() => { setEditingJob(null); setShowForm(true); }} title='Add new job'>+</button>
+        </>)}
+
+      {showForm && !isFirstLoadRef.current && (
         <JobForm
           onSubmit={(data) => {
             editingJob ? updateJob(editingJob._id, data) : addJob(data);
@@ -58,7 +80,6 @@ function App() {
           initialData={editingJob}
         />
       )}
-
     </div>
   );
 }

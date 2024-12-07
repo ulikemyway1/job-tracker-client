@@ -2,6 +2,8 @@ import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import JobForm from './JobForm';
 import JobTable from './JobTable';
+import './sass/index.scss'
+import Preloader from './components/Preloader';
 
 const API_URL = 'http://localhost:5000';
 
@@ -36,7 +38,15 @@ function App() {
 
   return (
     <div className='app__container'>
-      <button className='add-btn' onClick={() => { setEditingJob(null); setShowForm(true); }}>Add new</button>
+
+      <Preloader show={true}/>
+      <JobTable
+        jobs={jobs}
+        onEdit={(job) => { setEditingJob(job); setShowForm(true); }}
+        onDelete={deleteJob}
+      />
+
+      <button className='add-btn' onClick={() => { setEditingJob(null); setShowForm(true); }}>+</button>
 
       {showForm && (
         <JobForm
@@ -48,12 +58,7 @@ function App() {
           initialData={editingJob}
         />
       )}
-      
-      <JobTable
-        jobs={jobs}
-        onEdit={(job) => { setEditingJob(job); setShowForm(true); }}
-        onDelete={deleteJob}
-      />
+
     </div>
   );
 }

@@ -1,0 +1,38 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap');
+@import './variables.scss';
+@import './app.scss';
+@import './add-form.scss';
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100dvh;
+    font-family: Inter, Arial, sans-serif;
+    background: linear-gradient(#000000, #000000e5);
+    background-size: cover;
+    background-repeat: no-repeat;
+    color: #f2f2f2;
+}
+
+
+
+@media (hover: hover) {
+    button {
+        cursor: pointer;
+        transition: filter 0.3s ease-out;
+    
+        &:hover {
+            filter: brightness(1.1);
+            
+        }
+    }
+}
+
+.hidden {
+    display: none;
+}

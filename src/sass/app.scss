@@ -1,0 +1,12 @@
+.app {
+    &__container {
+        margin: 40px auto;
+        padding: 20px;
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+        gap: 20px;
+    }
+}

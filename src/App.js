@@ -2,7 +2,7 @@ import React, { useEffect, useState, useCallback, useRef } from 'react';
 import axios from 'axios';
 import JobForm from './JobForm';
 import JobTable from './JobTable';
-import './sass/index.scss'
+import './sass/index.scss';
 import Preloader from './components/Preloader';
 
 const API_URL = 'http://localhost:5000';
@@ -14,10 +14,11 @@ function App() {
   const [loading, setLoading] = useState(true);
   const isFirstLoadRef = useRef(true);
 
-  const delay = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
+  const delay = (ms) => new Promise(resolve => setTimeout(resolve, ms));
 
   const fetchJobs = useCallback(async () => {
     try {
+      setLoading(true);
       if (isFirstLoadRef.current) {
         const [res] = await Promise.all([
           axios.get(`${API_URL}/jobs`),
@@ -26,51 +27,67 @@ function App() {
         setJobs(res.data);
         isFirstLoadRef.current = false;
       } else {
-
-        const res = await axios.get(`${API_URL}/jobs`);
+        const [res] = await Promise.all([
+          axios.get(`${API_URL}/jobs`),
+          delay(500),
+        ]);
         setJobs(res.data);
       }
     } catch (error) {
-      console.error( error);
+      console.error(error);
+    } finally {
+      setLoading(false);
     }
   }, []);
 
   useEffect(() => {
     fetchJobs();
-  }, []);
+  }, [fetchJobs]);
 
   const addJob = async (job) => {
+    setLoading(true);
     await axios.post(`${API_URL}/jobs`, job);
-    fetchJobs();
+    await fetchJobs();
+    setLoading(false);
   };
 
   const updateJob = async (id, job) => {
+    setLoading(true);
     await axios.put(`${API_URL}/jobs/${id}`, job);
-    fetchJobs();
+    await fetchJobs();
+    setLoading(false);
   };
 
   const deleteJob = async (id) => {
+    setLoading(true);
     await axios.delete(`${API_URL}/jobs/${id}`);
-    fetchJobs();
+    await fetchJobs();
+    setLoading(false);
   };
 
   return (
     <div className='app__container'>
+      <Preloader show={loading} />
 
-      <Preloader show={isFirstLoadRef.current} />
-
-      {!isFirstLoadRef.current &&
-        (<>
+      {!loading && !isFirstLoadRef.current && (
+        <>
           <JobTable
             jobs={jobs}
             onEdit={(job) => { setEditingJob(job); setShowForm(true); }}
             onDelete={deleteJob}
           />
 
-          <button className='add-btn' onClick={() => { setEditingJob(null); setShowForm(true); }} title='Add new job'>+</button>
-        </>)}
+          <button
+            className='add-btn'
+            onClick={() => { setEditingJob(null); setShowForm(true); }}
+            title='Add new job'
+          >
+            +
+          </button>
+        </>
+      )}
 
-      {showForm && !isFirstLoadRef.current && (
+      {showForm && !loading && (
         <JobForm
           onSubmit={(data) => {
             editingJob ? updateJob(editingJob._id, data) : addJob(data);

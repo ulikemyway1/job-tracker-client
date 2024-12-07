@@ -7,7 +7,7 @@
 
     th,
     td {
-        padding: 5px 10px;
+        padding: 5px clamp(1px, 2vw, 10px);;
         text-align: center;
         border: 1px solid var(--yellow);
         border-bottom: none;
@@ -15,7 +15,7 @@
     }
 
     th {
-        font-size: 20px;
+        font-size: clamp(10px, 3vw, 20px);
         word-break: keep-all;
         border-top: none;
     }
@@ -32,7 +32,7 @@
         width: 40px;
         height: 40px;
         background-color: #ffffff;
-        font-size: 18px;
+        font-size: clamp(8px, 3vw, 18px);
         border: none;
         border-radius: 100%;
         transition: outline 0.3s ease-out;
@@ -56,7 +56,7 @@
 }
 
 .pagination {
-
+    margin-top: 10px;
     &__btn {
         background-color: #ffffff;
         height: 40px;

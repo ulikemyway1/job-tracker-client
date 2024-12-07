@@ -20,7 +20,7 @@ function JobTable({ jobs, onEdit, onDelete }) {
   }
   return (
     <>
-        <table  cellPadding="5" className='jobs-table'>
+        <table  className='jobs-table'>
       <thead>
         <tr>
           <th>Company<br/>Name</th>
@@ -48,11 +48,12 @@ function JobTable({ jobs, onEdit, onDelete }) {
       </tbody>
     </table>
 
-    <div style={{ marginTop: '10px' }}>
+   {totalPages > 1 && (
+    <div className='pagination'>
         <button className='pagination__btn prev' onClick={() => setCurrentPage(p => Math.max(p - 1, 1))} disabled={currentPage === 1}>Prev</button>
         <span style={{ margin: '0 10px' }}>{currentPage} / {totalPages}</span>
         <button className='pagination__btn next' onClick={() => setCurrentPage(p => Math.min(p + 1, totalPages))} disabled={currentPage === totalPages}>Next</button>
-      </div>
+      </div>)} 
     </>
 
 

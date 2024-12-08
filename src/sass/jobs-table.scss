@@ -7,11 +7,13 @@
 
     th,
     td {
-        padding: 5px clamp(1px, 2vw, 10px);;
+        padding: 5px clamp(1px, 2vw, 10px);
+        ;
         text-align: center;
         border: 1px solid var(--yellow);
         border-bottom: none;
         border-left: none;
+        transition: background-color 0.2s ease-out;
     }
 
     th {
@@ -31,15 +33,26 @@
         margin: 5px 10px;
         width: 40px;
         height: 40px;
-        background-color: #ffffff;
+        background-color: #ffffff7a;
         font-size: clamp(8px, 3vw, 18px);
         border: none;
         border-radius: 100%;
-        transition: outline 0.3s ease-out;
+        transition: outline 0.3s ease-out, opacity 0.3s ease-out;
     }
 
     &__edit-btn {
         margin-bottom: 10px;
+    }
+
+    tr:has(td:hover) {
+        td {
+            background-color: #9d9d9d1f;
+
+            .jobs-table__edit-btn,
+            .jobs-table__delete-btn {
+                opacity: 1;
+            }
+        }
     }
 }
 
@@ -55,10 +68,19 @@
     }
 }
 
+@media (hover: none) and (pointer: coarse) {
+
+    .jobs-table__edit-btn,
+    .jobs-table__delete-btn {
+        opacity: 1;
+    }
+}
+
 .pagination {
     margin-top: 10px;
+
     &__btn {
-        background-color: #ffffff;
+        background-color: #ffffff83;
         height: 40px;
         width: 50px;
         border-radius: 100%;
@@ -83,4 +105,19 @@
             }
         }
     }
+}
+
+@media (max-width: 600px) {
+
+    .jobs-table th,
+    .jobs-table td {
+        padding: 5px 0;
+        font-size: 8px;
+
+        button {
+            height: 20px;
+            width: 20px;
+        }
+    }
+
 }

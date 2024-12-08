@@ -7,6 +7,7 @@ import Preloader from './components/Preloader';
 
 const API_URL = 'http://localhost:5000';
 
+
 function App() {
   const [jobs, setJobs] = useState([]);
   const [editingJob, setEditingJob] = useState(null);

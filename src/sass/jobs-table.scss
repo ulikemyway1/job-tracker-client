@@ -20,6 +20,7 @@
         font-size: clamp(10px, 3vw, 20px);
         word-break: keep-all;
         border-top: none;
+        background-color: var(--yellow);
     }
 
     td:last-of-type,
@@ -52,6 +53,12 @@
             .jobs-table__delete-btn {
                 opacity: 1;
             }
+        }
+    }
+
+    tr:has(.hot) {
+        td {
+            background-color: rgba(255, 205, 7, 0.472);
         }
     }
 }

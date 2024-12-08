@@ -5,8 +5,7 @@ import JobTable from './JobTable';
 import './sass/index.scss';
 import Preloader from './components/Preloader';
 
-const API_URL = 'http://localhost:5000';
-// const API_URL = 'https://qrz5ls-25176.csb.app';
+const API_URL = 'https://qrz5ls-25176.csb.app';
 
 function App() {
   const [jobs, setJobs] = useState([]);

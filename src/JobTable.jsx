@@ -42,7 +42,7 @@ function JobTable({ jobs, totalJobs, currentPage, totalPages, onEdit, onDelete, 
               <td>{job.company}</td>
               <td>{job.position}</td>
               <td>{job.salary}</td>
-              <td>{job.status}</td>
+              <td className={job.status==='hot' ? 'hot': ''}>{job.status.toUpperCase()}</td>
               <td>{job.note}</td>
               <td>
                 <button className='jobs-table__edit-btn' title='Edit' onClick={() => onEdit(job)}>✏️</button>
